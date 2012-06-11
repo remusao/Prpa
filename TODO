@@ -1,1 +1,5 @@
-everything ...
+
+- implement pipeline that takes a video, apply filters.
+- implement pipeline that tales 2 videos and apply filters.
+- implement input script to describe the process to do on inputs.
+- add filters
