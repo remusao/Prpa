@@ -1,6 +1,6 @@
 # Add subdirectories
 
-#add_subdirectory(ast)
+add_subdirectory(filter)
 
 # Add the binary and sources
 add_executable(
@@ -9,4 +9,5 @@ add_executable(
 )
 
 TARGET_LINK_LIBRARIES(../../prpa ${OpenCV_LIBS})
+TARGET_LINK_LIBRARIES(../../prpa filter)
 #target_link_libraries(../../../pit ast)

@@ -7,7 +7,7 @@ ERROR="<It seems that the build/ directory is missing\nMaybe you forgot to execu
 
 
 all:
-	@make -C build
+	@make -j 4 -C build
 
 clean:
 	@echo -e "\033[33m< ---------------------- >\033[37m"
