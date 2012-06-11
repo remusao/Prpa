@@ -1,54 +1,26 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <math.h>
-#include <cv.h>
-#include <highgui.h>
+#include "cv.h"
+#include "highgui.h"
 
+using namespace cv;
 
-int main(int argc, char *argv[])
+int main(int, char**)
 {
-    IplImage *img = 0; 
-    int height, width, step, channels;
-    uchar *data;
-    int i, j, k;
+    VideoCapture cap(0); // open the default camera
+    if(!cap.isOpened())  // check if we succeeded
+        return -1;
 
-    if (argc < 2)
+    Mat edges;
+    namedWindow("edges",1);
+    for(;;)
     {
-        printf("Usage: main <image-file-name>\n\7");
-        exit(0);
+        Mat frame;
+        cap >> frame; // get a new frame from camera
+        cvtColor(frame, edges, CV_BGR2GRAY);
+        GaussianBlur(edges, edges, Size(7,7), 1.5, 1.5);
+        Canny(edges, edges, 0, 30, 3);
+        imshow("edges", edges);
+        if(waitKey(30) >= 0) break;
     }
-
-    // load an image  
-    img = cvLoadImage(argv[1]);
-    if (!img)
-    {
-        printf("Could not load image file: %s\n",argv[1]);
-        exit(0);
-    }
-
-    // get the image data
-    height    = img->height;
-    width     = img->width;
-    step      = img->widthStep;
-    channels  = img->nChannels;
-    data      = (uchar *)img->imageData;
-    printf("Processing a %dx%d image with %d channels\n",height,width,channels); 
-
-    // create a window
-    cvNamedWindow("mainWin", CV_WINDOW_AUTOSIZE); 
-    cvMoveWindow("mainWin", 100, 100);
-
-    // invert the image
-    for(i=0;i<height;i++) for(j=0;j<width;j++) for(k=0;k<channels;k++)
-        data[i*step+j*channels+k]=255-data[i*step+j*channels+k];
-
-    // show the image
-    cvShowImage("mainWin", img );
-
-    // wait for a key
-    cvWaitKey(0);
-
-    // release the image
-    cvReleaseImage(&img );
+    // the camera will be deinitialized automatically in VideoCapture destructor
     return 0;
 }
