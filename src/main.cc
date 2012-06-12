@@ -1,9 +1,12 @@
+#include <string>
 #include "cv.h"
 #include "highgui.h"
+#include "interpreter/driver.hh"
 
 using namespace cv;
 
-int main(int, char**)
+
+int test()
 {
     VideoCapture cap(0); // open the default camera
     if(!cap.isOpened())  // check if we succeeded
@@ -22,5 +25,16 @@ int main(int, char**)
         if(waitKey(30) >= 0) break;
     }
     // the camera will be deinitialized automatically in VideoCapture destructor
+    return 0;
+}
+
+
+int main(int argc, char *argv[])
+{
+    parsepit::Driver d;
+
+    if (argc == 2)
+        d.parse_file(*new std::string(argv[1]));
+
     return 0;
 }

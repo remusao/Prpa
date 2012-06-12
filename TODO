@@ -1,5 +1,7 @@
 
-- implement pipeline that takes a video, apply filters.
-- implement pipeline that tales 2 videos and apply filters.
-- implement input script to describe the process to do on inputs.
-- add filters
+- Implements interpreter for the scripts
+- Implements management of multiple sources (multiple
+    instances of the engine (differents pipelnes))
+- Implements management of multiple outputs
+- Implements filters
+- Implement multithreading as much as possible

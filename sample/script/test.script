@@ -1,0 +1,2 @@
+s1 = Source("toto")
+Output(s2, "titi")
