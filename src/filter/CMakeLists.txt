@@ -2,4 +2,12 @@ add_library(filter
             STATIC
             revert.cc
             revert.hh
+            inputFilter.cc
+            inputFilter.hh
+            outputFileFilter.cc
+            outputFileFilter.hh
+            outputWindowFilter.cc
+            outputWindowFilter.hh
+            outputPicturesFilter.cc
+            outputPicturesFilter.hh
 )

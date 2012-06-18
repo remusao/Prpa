@@ -81,19 +81,11 @@ SCRIPT:
 ;
 
 STATEMENT:
-        "id" "=" LVAL
-    |   "output" "(" "id" "," OPTION ")"            {}
-;
-
-LVAL:
-        "source" "(" "string" ")"           {}
-    |   "filter" "(" "id" "," "flag" ")"   {}
-    |   "overlay" "(" "id" "," "id" ")"    {}
-    |   "mix" "(" "id" "," "id" ")"        {}
-
-OPTION:
-      "string"
-    | "flag"
+        "source" "(" "id" ")"       {}
+    |   "filter" "(" "id" ")"     {}
+    |   "overlay" "(" "id" ")"      {}
+    |   "mix" "(" "id" ")"          {}
+    |   "output" "(" "id" ")"       {}
 ;
 
 

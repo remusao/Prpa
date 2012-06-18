@@ -1,2 +1,4 @@
-s1 = Source("toto")
-Output(s2, "titi")
+Source(toto.avi)
+Output(titi.avi)
+Output(WEBCAM)
+Filter(GaussianBlur)

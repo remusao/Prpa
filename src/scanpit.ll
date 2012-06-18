@@ -61,19 +61,14 @@ typedef parsepit::Parser::token_type token_type;
 %option prefix="parsepit"
 
 %option stack
-%x SC_COMMENT SC_STRING
+%x SC_COMMENT SC_C_COMMENT
 
 /* Abbreviations.  */
 
 sep             [ \t\r]+
 endofline       [\n\r|\r\n|\n|\r]+
 
-integer         ([1-9]+[0-9]*)|"0"|([1-9]+[0-9_]*[0-9])
-octal           "0"(([1-7]+[0-7]*)|"0"|([1-7]+[0-7_]*[0-7]))
-hexa            "0x"(([0-9A-Fa-f]+)|([0-9A-Fa-f]+[0-9A-Fa-f_]*[0-9A-Fa-f]))
-binary          "%"(([01]+)|[01][01_]*[01])
-id              [a-zA-Z0-9]+
-flag            [A-Z_]*
+id              [a-zA-Z0-9_.]+
 
 %%
 
@@ -81,28 +76,6 @@ flag            [A-Z_]*
 %{
   STEP();
 %}
-
-
-<SC_STRING>
-{
-  "\""      {
-              yy_pop_state ();
-              yylval->str = growing;
-              return token::STRING;
-            }
-
-  <<EOF>>   {
-              std::cerr << driver.location_ << " Unterminated string" << std::endl;
-              driver.error_ = (driver.error_ == 127 ? 127 : driver.error_ + 1);
-              yy_pop_state ();
-            }
-[\a|\b|\f|\n|\r|\t|\v] growing->append(yytext);
-
-  .         {
-              growing->append(yytext);
-            }
-
-}
 
 
 <SC_COMMENT>
@@ -114,11 +87,18 @@ flag            [A-Z_]*
   .             { STEP (); }
 }
 
+<SC_C_COMMENT>
+{
+  "*/"          {yy_pop_state ();}
 
-"\""          {
-                yy_push_state (SC_STRING);
-                growing = new std::string ();
-              }
+  <<EOF>>       {yy_pop_state ();}
+
+  .             { STEP(); }
+}
+
+"/*"            {yy_push_state (SC_C_COMMENT);}
+
+"\#"           {yy_push_state (SC_COMMENT);}
 
 
 (?i:source)   {
@@ -147,44 +127,8 @@ flag            [A-Z_]*
               }
 
 
-{binary}      {
-                GET_INT();
-                return token::INTEGER;
-              }
-
-","           return token::COMA;
-
-"\#"           {yy_push_state (SC_COMMENT);}
-
 "("           return token::LPAR;
 ")"           return token::RPAR;
-"="           return token::ASSIGN;
-
-
-
-{octal}       {
-                GET_INT();
-                return token::INTEGER;
-              }
-
-{integer}     {
-                GET_INT();
-                return token::INTEGER;
-              }
-
-
-{hexa}        {
-                growing = new std::string (yytext + 1);
-                yylval->ival = convert(*growing);
-                delete growing;
-                growing = 0;
-                return token::INTEGER;
-              }
-
-{flag}        {
-                GET_STR();
-                return token::FLAGS;
-              }
 
 
 {id}          {

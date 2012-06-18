@@ -1,7 +1,9 @@
 #include <string>
+#include <cstdlib>
+#include <iostream>
 #include "cv.h"
 #include "highgui.h"
-#include "interpreter/driver.hh"
+#include "driver.hh"
 
 using namespace cv;
 
@@ -29,8 +31,23 @@ int test()
 }
 
 
+int usage()
+{
+    std::cout << "Parallel stream processing Usage :" << std::endl;
+    std::cout << "./prpa <script_file> [nthread]" << std::endl;
+    return 1;
+}
+
+
 int main(int argc, char *argv[])
 {
+    unsigned nthread = 4;
+    if (argc == 1)
+        return usage();
+    else if (argc == 3)
+        nthread = atoi(argv[2]);
+
+    std::cout << nthread << std::endl;
     parsepit::Driver d;
 
     if (argc == 2)
