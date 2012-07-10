@@ -30,7 +30,7 @@ int test(parsepit::Driver& drv, int threads)
   //img=cvRetrieveFrame(capture);           // retrieve the captured frame
 
   //We feed the pipeline with filters.
-  InputFilter ifilter (capture);
+  /*InputFilter ifilter (capture);
   //Input
   pipeline.add_filter (ifilter);
 
@@ -46,12 +46,14 @@ int test(parsepit::Driver& drv, int threads)
 
   //We release the inputs and outputs and clear the pipeline.
   pipeline.clear();
-  /*while (cvGrabFrame(capture))
+  */while (cvGrabFrame(capture))
   {
-    cvShowImage("test", cvRetrieveFrame(capture));
+    IplImage* tmp = 0;
+    cvCanny(cvRetrieveFrame(capture), tmp, 200 * 49, 600 * 49, 7);
+    cvShowImage("test", tmp);
     cvWaitKey(20);
     //cvWriteFrame(writer, cvQueryFrame(capture));
-  }*/
+  }
   cvReleaseCapture(&capture);
 
   return 0;
