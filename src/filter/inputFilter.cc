@@ -2,7 +2,7 @@
 
 InputFilter::InputFilter(CvCapture* cap)
     : filter(/* is_serial */ true),
-    capture (cap)
+      capture (cap)
 {
 }
 
