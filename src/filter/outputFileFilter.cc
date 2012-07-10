@@ -1,8 +1,7 @@
 #include "outputFileFilter.hh"
 
-OutputFileFilter::OutputFileFilter(CvVideoWriter* wri)
-    : filter(/* is_serial */ true),
-    writer (wri)
+OutputFileFilter::OutputFileFilter()
+    : filter(/* is_serial */ true)
 {
 }
 
@@ -11,8 +10,10 @@ void*
 OutputFileFilter::operator()(void* tok)
 {
   IplImage* img = static_cast<IplImage*> (tok);
+  if (!img)
+    printf ("img null in output\n");
   //We write the image thank's to the writer.
-  cvWriteFrame(writer, img);
+  cvShowImage("PRPA", tok);
   return 0;
 }
 
