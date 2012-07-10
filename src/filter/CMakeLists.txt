@@ -12,4 +12,6 @@ add_library(filter
             outputPicturesFilter.hh
             ErodeFilter.cc
             ErodeFilter.hh
+            DilateFilter.cc
+            DilateFilter.hh
 )
