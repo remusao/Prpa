@@ -1,4 +1,4 @@
-Source(toto.avi)
-Output(titi.avi)
+Source(titi.avi)
+Output(tata.avi)
 Output(WEBCAM)
 Filter(GaussianBlur)
