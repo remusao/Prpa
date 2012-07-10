@@ -14,18 +14,19 @@ using namespace cv;
 
 int test(parsepit::Driver& drv, int threads)
 {
-  tbb::task_scheduler_init init( threads );
+  tbb::task_scheduler_init init(threads);
   //The pipeline.
   tbb::pipeline pipeline;
 
   //First we init the inputs and outputs.
-  CvCapture* capture = cvCaptureFromFile(drv.input_get ()->c_str());
+  //CvCapture* capture = cvCaptureFromFile(drv.input_get ()->c_str());
+  CvCapture* capture = cvCreateCameraCapture(0);
 
   IplImage* img = 0;
-  if(!cvGrabFrame(capture))
+  if (!cvGrabFrame(capture))
   {              // capture a frame 
       printf("Could not grab a frame\n\7");
-        exit(0);
+      exit(0);
   }
   //img=cvRetrieveFrame(capture);           // retrieve the captured frame
 
@@ -43,7 +44,6 @@ int test(parsepit::Driver& drv, int threads)
   pipeline.add_filter (ofilter);
   //Then we can run the pipeline.
   pipeline.run(threads);
-
 
   //We release the inputs and outputs and clear the pipeline.
   pipeline.clear();
@@ -78,7 +78,11 @@ int main(int argc, char *argv[])
     std::cout << argc << " " << nthread << std::endl;
     parsepit::Driver d;
 
+<<<<<<< HEAD
     if (argc == 3)
+=======
+    if (argc >= 2)
+>>>>>>> 11c5c648f07320f357af72278dded7a234282ab1
         d.parse_file(*new std::string(argv[1]));
 
     test (d, nthread);
