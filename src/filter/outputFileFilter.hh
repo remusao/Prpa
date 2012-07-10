@@ -9,11 +9,10 @@
 class OutputFileFilter : public tbb::filter
 {
     public:
-        OutputFileFilter(CvVideoWriter*);
+        OutputFileFilter();
         std::string get_name();
     private:
         void* operator()(void*);
-        CvVideoWriter* writer;
 };
 
 #endif /* !OUTPUTFILEFILTER_HH_ */

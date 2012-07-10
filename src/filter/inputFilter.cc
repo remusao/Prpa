@@ -12,8 +12,11 @@ InputFilter::operator()(void* elt)
 {
   if (cvGrabFrame (capture))
   {
+    IplImage* img = cvRetrieveFrame (capture);
+    if (!img)
+      printf("img is null in input filter.\n");
     //If we want we can show the image.
-    return cvRetrieveFrame (capture);
+    return img;
   }
   else
     return 0;

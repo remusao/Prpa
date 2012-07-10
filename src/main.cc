@@ -28,15 +28,8 @@ int test(parsepit::Driver& drv, int threads)
       printf("Could not grab a frame\n\7");
       exit(0);
   }
-  img = cvRetrieveFrame(capture);           // retrieve the captured frame
-  cvQueryFrame(capture); // this call is necessary to get correct capture properties
-  int frameH    = (int)cvGetCaptureProperty(capture, CV_CAP_PROP_FRAME_HEIGHT);
-  int frameW    = (int)cvGetCaptureProperty(capture, CV_CAP_PROP_FRAME_WIDTH);
-  int fps       = 30;//(int)cvGetCaptureProperty(capture, CV_CAP_PROP_FPS);
-  int isColor = 1;
+  //img=cvRetrieveFrame(capture);           // retrieve the captured frame
 
-  CvVideoWriter* writer = cvCreateVideoWriter(drv.output_get ()->c_str(), CV_FOURCC('P','I','M','1'),
-                                 fps, cvSize(frameW, frameH), isColor);
   //We feed the pipeline with filters.
   InputFilter ifilter (capture);
   //Input
@@ -44,9 +37,9 @@ int test(parsepit::Driver& drv, int threads)
 
   //CannyFilter
   CannyFilter canny_filter;
-  pipeline.add_filter (canny_filter);
+  //pipeline.add_filter (canny_filter);
 
-  OutputFileFilter ofilter (writer);
+  OutputFileFilter ofilter;
   //Output
   pipeline.add_filter (ofilter);
   //Then we can run the pipeline.
@@ -54,8 +47,13 @@ int test(parsepit::Driver& drv, int threads)
 
   //We release the inputs and outputs and clear the pipeline.
   pipeline.clear();
+  /*while (cvGrabFrame(capture))
+  {
+    cvShowImage("test", cvRetrieveFrame(capture));
+    cvWaitKey(20);
+    //cvWriteFrame(writer, cvQueryFrame(capture));
+  }*/
   cvReleaseCapture(&capture);
-  cvReleaseVideoWriter(&writer);
 
   return 0;
 }
@@ -77,11 +75,12 @@ int main(int argc, char *argv[])
     else if (argc == 3)
         nthread = atoi(argv[2]);
 
-    std::cout << nthread << std::endl;
+    std::cout << argc << " " << nthread << std::endl;
     parsepit::Driver d;
 
     if (argc >= 2)
         d.parse_file(*new std::string(argv[1]));
+
     test (d, nthread);
 
     return 0;
