@@ -36,7 +36,7 @@ int test(parsepit::Driver& drv, int threads)
 
   //CannyFilter
   CannyFilter canny_filter;
-  //pipeline.add_filter (canny_filter);
+  pipeline.add_filter (canny_filter);
 
   OutputFileFilter ofilter;
   //Output
@@ -48,7 +48,10 @@ int test(parsepit::Driver& drv, int threads)
   pipeline.clear();
   /*while (cvGrabFrame(capture))
   {
-    cvShowImage("test", cvRetrieveFrame(capture));
+    IplImage* tmp2 = cvRetrieveFrame(capture);
+    IplImage* tmp = cvCreateImage( cvGetSize(tmp2), IPL_DEPTH_8U, 3 );
+    cvErode(tmp2, tmp, 0, 1);
+    cvShowImage("test", tmp);
     cvWaitKey(20);
     //cvWriteFrame(writer, cvQueryFrame(capture));
   }*/
