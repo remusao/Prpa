@@ -17,7 +17,7 @@ void set_filters(tbb::pipeline* pipeline, parsepit::Driver& drv)
 {
     for (std::vector<std::string*>::iterator it = drv.filters_get().begin(); it < drv.filters_get().end(); it++)
     {
-       std::cout << *it << std::endl;
+       std::cout << "filter: " << *it << std::endl;
     }
 }
 
