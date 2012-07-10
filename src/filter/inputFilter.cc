@@ -1,15 +1,22 @@
 #include "inputFilter.hh"
 
-InputFilter::InputFilter()
-    : filter(true)
+InputFilter::InputFilter(CvCapture* cap)
+    : filter(/* is_serial */ true),
+    capture (cap)
 {
 }
 
 
 void*
-InputFilter::operator()(void*)
+InputFilter::operator()(void* elt)
 {
-    return (void*)0x0;
+  if (cvGrabFrame (capture))
+  {
+    //If we want we can show the image.
+    return cvRetrieveFrame (capture);
+  }
+  else
+    return 0;
 }
 
 std::string
