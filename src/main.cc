@@ -19,8 +19,7 @@ int test(parsepit::Driver& drv, int threads)
   tbb::pipeline pipeline;
 
   //First we init the inputs and outputs.
-  //CvCapture* capture = cvCaptureFromFile(drv.input_get ()->c_str());
-  CvCapture* capture = cvCreateCameraCapture(0);
+  CvCapture* capture = cvCaptureFromFile(drv.input_get ()->c_str());
 
   IplImage* img = 0;
   if (!cvGrabFrame(capture))
