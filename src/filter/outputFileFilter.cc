@@ -2,7 +2,7 @@
 
 OutputFileFilter::OutputFileFilter(CvVideoWriter* wri)
     : filter(/* is_serial */ true),
-    writer (wri)
+      writer (wri)
 {
 }
 
