@@ -13,7 +13,7 @@ namespace parsepit
       filter_flags_ (0),
       output_ (new std::string()),
       input_ (new std::string()),
-      filters_ (std::vector<std::string*>())
+      filters_ (*new std::vector<std::string*>())
   {
   }
 

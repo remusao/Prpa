@@ -16,7 +16,7 @@ namespace parsepit
   {
     return output_;
   }
-  inline std::vector<std::string*>
+  inline std::vector<std::string*>&
   Driver::filters_get () const
   {
       return filters_;
