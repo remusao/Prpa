@@ -6,8 +6,8 @@ PROJECT(prpa)
 
 FIND_PACKAGE(OpenCV REQUIRED)
 
-SET(CXX "clang++")
-SET(CMAKE_CXX_COMPILER  "/usr/bin/clang++")
+SET(CXX "g++")
+SET(CMAKE_CXX_COMPILER  "/usr/bin/g++")
 SET(CMAKE_CXX_FLAGS_DEBUG "-Wall -W -Werror -pedantic -g")
 SET(CMAKE_CXX_FLAGS "-Wall -W -pedantic -O3")
 

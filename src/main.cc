@@ -10,6 +10,7 @@
 #include "filter/outputFileFilter.hh"
 #include "filter/ErodeFilter.hh"
 #include "filter/DilateFilter.hh"
+#include "filter/EdgesDetectionFilter.hh"
 
 using namespace cv;
 
@@ -17,7 +18,7 @@ void set_filters(tbb::pipeline* pipeline, parsepit::Driver& drv)
 {
     for (std::vector<std::string*>::iterator it = drv.filters_get().begin(); it < drv.filters_get().end(); it++)
     {
-       std::cout << "filter: " << *it << std::endl;
+       std::cout << "filter: " << **it << std::endl;
     }
 }
 
@@ -47,12 +48,13 @@ int test(parsepit::Driver& drv, int threads)
   //Input
   pipeline.add_filter (ifilter);
 
-  set_filters(&pipeline, drv);
   //ErodeFilter
   ErodeFilter erode_filter;
   DilateFilter dilate_filter;
-  pipeline.add_filter (dilate_filter);
-  pipeline.add_filter (erode_filter);
+  EdgesDetectionFilter edf;
+  pipeline.add_filter(edf);
+  //pipeline.add_filter (dilate_filter);
+  //pipeline.add_filter (erode_filter);
 
   OutputFileFilter ofilter;
   //Output

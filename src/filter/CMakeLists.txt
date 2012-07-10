@@ -14,4 +14,6 @@ add_library(filter
             ErodeFilter.hh
             DilateFilter.cc
             DilateFilter.hh
+            EdgesDetectionFilter.cc
+            EdgesDetectionFilter.hh
 )
