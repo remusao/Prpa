@@ -12,6 +12,7 @@ InputFilter::operator()(void* elt)
 {
   if (cvGrabFrame (capture))
   {
+    printf("nann");
     IplImage* img = cvRetrieveFrame (capture);
     if (!img)
       printf("img is null in input filter.\n");

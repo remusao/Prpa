@@ -78,11 +78,7 @@ int main(int argc, char *argv[])
     std::cout << argc << " " << nthread << std::endl;
     parsepit::Driver d;
 
-<<<<<<< HEAD
-    if (argc == 3)
-=======
     if (argc >= 2)
->>>>>>> 11c5c648f07320f357af72278dded7a234282ab1
         d.parse_file(*new std::string(argv[1]));
 
     test (d, nthread);
