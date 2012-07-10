@@ -1,12 +1,12 @@
-#include "CannyFilter.hh"
+#include "ErodeFilter.hh"
 
-CannyFilter::CannyFilter()
+ErodeFilter::ErodeFilter()
   : filter (/* is_serial */ false)
 {
 }
 
 void*
-CannyFilter::operator()(void* elt)
+ErodeFilter::operator()(void* elt)
 {
   IplImage* img = static_cast<IplImage*> (elt);
   if (!img)
@@ -18,7 +18,7 @@ CannyFilter::operator()(void* elt)
 }
 
 std::string
-CannyFilter::get_name ()
+ErodeFilter::get_name ()
 {
-  return "Canny filter";
+  return "Erode filter";
 }

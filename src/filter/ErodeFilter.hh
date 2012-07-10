@@ -1,18 +1,18 @@
-#ifndef CANNYFILTER_HH_
-# define CANNYFILTER_HH_
+#ifndef ERODEFILTER_HH_
+# define ERODEFILTER_HH_
 
 # include <string>
 # include "tbb/pipeline.h"
 # include "cv.h"
 # include "highgui.h"
 
-class CannyFilter : public tbb::filter
+class ErodeFilter : public tbb::filter
 {
   public:
-    CannyFilter();
+    ErodeFilter();
     std::string get_name ();
   private:
     void* operator()(void*);
 };
 
-#endif /* !CANNYFILTER_HH_ */
+#endif /* !ERODEFILTER_HH_ */

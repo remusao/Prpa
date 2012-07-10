@@ -10,6 +10,6 @@ add_library(filter
             outputWindowFilter.hh
             outputPicturesFilter.cc
             outputPicturesFilter.hh
-            CannyFilter.cc
-            CannyFilter.hh
+            ErodeFilter.cc
+            ErodeFilter.hh
 )

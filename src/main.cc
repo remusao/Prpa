@@ -8,7 +8,7 @@
 #include "tbb/pipeline.h"
 #include "filter/inputFilter.hh"
 #include "filter/outputFileFilter.hh"
-#include "filter/CannyFilter.hh"
+#include "filter/ErodeFilter.hh"
 
 using namespace cv;
 
@@ -34,9 +34,9 @@ int test(parsepit::Driver& drv, int threads)
   //Input
   pipeline.add_filter (ifilter);
 
-  //CannyFilter
-  CannyFilter canny_filter;
-  pipeline.add_filter (canny_filter);
+  //ErodeFilter
+  ErodeFilter erode_filter;
+  pipeline.add_filter (erode_filter);
 
   OutputFileFilter ofilter;
   //Output
