@@ -33,11 +33,11 @@ namespace parsepit
     location_ = new location ();
 
     error_ = 0;
-  /*  delete output_;
+    delete output_;
     delete input_;
     output_ = 0;
     input_ = 0;
-    filters_.clear();*/
+    filters_.clear();
   }
 
   void
