@@ -9,6 +9,7 @@
 #include "filter/inputFilter.hh"
 #include "filter/outputFileFilter.hh"
 #include "filter/ErodeFilter.hh"
+#include "filter/DilateFilter.hh"
 
 using namespace cv;
 
@@ -48,8 +49,10 @@ int test(parsepit::Driver& drv, int threads)
 
   set_filters(&pipeline, drv);
   //ErodeFilter
-  //ErodeFilter erode_filter;
-  //pipeline.add_filter (erode_filter);
+  ErodeFilter erode_filter;
+  DilateFilter dilate_filter;
+  pipeline.add_filter (dilate_filter);
+  pipeline.add_filter (erode_filter);
 
   OutputFileFilter ofilter;
   //Output
