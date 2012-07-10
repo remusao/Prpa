@@ -82,7 +82,7 @@ SCRIPT:
 
 STATEMENT:
         "source" "(" "id" ")"       { driver.input_ = $3; }
-    |   "filter" "(" "id" ")"       {}
+    |   "filter" "(" "id" ")"       { std::cout << *$3 << std::endl; driver.filters_.push_back(new std::string($3->c_str())); }
     |   "overlay" "(" "id" ")"      {}
     |   "mix" "(" "id" ")"          {}
     |   "output" "(" "id" ")"       { driver.output_ = $3; }

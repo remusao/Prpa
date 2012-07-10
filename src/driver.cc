@@ -10,9 +10,10 @@ namespace parsepit
       parser_ (new Parser (*this)),
       error_ (0),
       location_ (new location ()),
-      input_ (new std::string()),
+      filter_flags_ (0),
       output_ (new std::string()),
-      filter_flags_ (0)
+      input_ (new std::string()),
+      filters_ (std::vector<std::string*>())
   {
   }
 
@@ -32,6 +33,11 @@ namespace parsepit
     location_ = new location ();
 
     error_ = 0;
+    delete output_;
+    delete input_;
+    output_ = 0;
+    input_ = 0;
+    filters_.clear();
   }
 
   void
@@ -40,8 +46,6 @@ namespace parsepit
     scanner_->switch_streams (&std::cin, &std::cerr);
 
     parser_->parse ();
-
-    //return result_;
   }
 
   void
@@ -53,7 +57,5 @@ namespace parsepit
     parser_->parse ();
 
     s.close ();
-
-    //return result_;
   }
 }

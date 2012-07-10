@@ -12,6 +12,14 @@
 
 using namespace cv;
 
+void set_filters(tbb::pipeline* pipeline, parsepit::Driver& drv)
+{
+    for (std::vector<std::string*>::iterator it = drv.filters_get().begin(); it < drv.filters_get().end(); it++)
+    {
+       std::cout << *it << std::endl;
+    }
+}
+
 int test(parsepit::Driver& drv, int threads)
 {
   tbb::task_scheduler_init init(threads);
@@ -38,9 +46,10 @@ int test(parsepit::Driver& drv, int threads)
   //Input
   pipeline.add_filter (ifilter);
 
+  set_filters(&pipeline, drv);
   //ErodeFilter
-  ErodeFilter erode_filter;
-  pipeline.add_filter (erode_filter);
+  //ErodeFilter erode_filter;
+  //pipeline.add_filter (erode_filter);
 
   OutputFileFilter ofilter;
   //Output

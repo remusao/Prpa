@@ -6,6 +6,7 @@
 # include <iostream>
 # include <fstream>
 # include <list>
+# include <vector>
 # include "tbb/pipeline.h"
 
 namespace parsepit
@@ -29,6 +30,7 @@ namespace parsepit
 
       std::string* input_get () const;
       std::string* output_get () const;
+      std::vector<std::string*> filters_get () const;
 
     private:
       Scanner*      scanner_;
@@ -40,6 +42,7 @@ namespace parsepit
       //We want to store some informations from the parsing:
       std::string* output_;
       std::string* input_;
+      std::vector<std::string*> filters_;
 
       /// Allows Parser and Scanner to access private attributes
       /// of the Driver class
