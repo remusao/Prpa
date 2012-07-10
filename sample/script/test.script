@@ -1,5 +1,6 @@
 Source(WEBCAM)
 Output(tata.avi)
 Output(WEBCAM)
-Filter(DilateFilter)
-Filter(ErodeFilter)
+Filter(EdgeDetection)
+#Filter(Erode)
+#Filter(Dilate)

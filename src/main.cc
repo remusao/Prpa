@@ -19,10 +19,12 @@ void set_filters(tbb::pipeline* pipeline, parsepit::Driver& drv)
 {
     for (std::vector<std::string*>::iterator it = drv.filters_get().begin(); it < drv.filters_get().end(); it++)
     {
-        if ((*it)->compare("ErodeFilter") == 0)
+        if ((*it)->compare("Erode") == 0)
             pipeline->add_filter(*new ErodeFilter());
-        else if ((*it)->compare("DilateFilter") == 0)
+        else if ((*it)->compare("Dilate") == 0)
             pipeline->add_filter(*new DilateFilter());
+        else if ((*it)->compare("EdgeDetection") == 0)
+            pipeline->add_filter(*new EdgesDetectionFilter());
     }
 }
 
