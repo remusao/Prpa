@@ -50,6 +50,8 @@ int main(int argc, char *argv[])
     std::cout << nthread << std::endl;
     parsepit::Driver d;
 
+    test();
+
     if (argc == 2)
         d.parse_file(*new std::string(argv[1]));
 
