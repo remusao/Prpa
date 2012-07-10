@@ -1,4 +1,5 @@
 Source(WEBCAM)
 Output(tata.avi)
 Output(WEBCAM)
-Filter(GaussianBlur)
+Filter(DilateFilter)
+Filter(ErodeFilter)

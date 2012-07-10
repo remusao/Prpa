@@ -13,11 +13,15 @@
 
 using namespace cv;
 
+
 void set_filters(tbb::pipeline* pipeline, parsepit::Driver& drv)
 {
     for (std::vector<std::string*>::iterator it = drv.filters_get().begin(); it < drv.filters_get().end(); it++)
     {
-       std::cout << "filter: " << *it << std::endl;
+        if ((*it)->compare("ErodeFilter") == 0)
+            pipeline->add_filter(*new ErodeFilter());
+        else if ((*it)->compare("DilateFilter") == 0)
+            pipeline->add_filter(*new DilateFilter());
     }
 }
 
@@ -48,11 +52,6 @@ int test(parsepit::Driver& drv, int threads)
   pipeline.add_filter (ifilter);
 
   set_filters(&pipeline, drv);
-  //ErodeFilter
-  ErodeFilter erode_filter;
-  DilateFilter dilate_filter;
-  pipeline.add_filter (dilate_filter);
-  pipeline.add_filter (erode_filter);
 
   OutputFileFilter ofilter;
   //Output
