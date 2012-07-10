@@ -1,15 +1,19 @@
 #include "outputFileFilter.hh"
 
-OutputFileFilter::OutputFileFilter()
-    : filter(true)
+OutputFileFilter::OutputFileFilter(CvVideoWriter* wri)
+    : filter(/* is_serial */ true),
+    writer (wri)
 {
 }
 
 
 void*
-OutputFileFilter::operator()(void*)
+OutputFileFilter::operator()(void* tok)
 {
-    return (void*)0x0;
+  IplImage* img = static_cast<IplImage*> (tok);
+  //We write the image thank's to the writer.
+  cvWriteFrame(writer, img);
+  return 0;
 }
 
 std::string

@@ -9,7 +9,10 @@ namespace parsepit
     : scanner_ (new Scanner ()),
       parser_ (new Parser (*this)),
       error_ (0),
-      location_ (new location ())
+      location_ (new location ()),
+      input_ (new std::string()),
+      output_ (new std::string()),
+      filter_flags_ (0)
   {
   }
 
@@ -18,6 +21,8 @@ namespace parsepit
     delete parser_;
     delete scanner_;
     delete location_;
+    delete input_;
+    delete output_;
   }
 
   void

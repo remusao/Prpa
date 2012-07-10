@@ -81,11 +81,11 @@ SCRIPT:
 ;
 
 STATEMENT:
-        "source" "(" "id" ")"       {}
+        "source" "(" "id" ")"       { driver.input_ = $3; }
     |   "filter" "(" "id" ")"     {}
     |   "overlay" "(" "id" ")"      {}
     |   "mix" "(" "id" ")"          {}
-    |   "output" "(" "id" ")"       {}
+    |   "output" "(" "id" ")"       { driver.output_ = $3; }
 ;
 
 
