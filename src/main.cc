@@ -80,7 +80,8 @@ int main(int argc, char *argv[])
     std::cout << nthread << std::endl;
     parsepit::Driver d;
 
-    d.parse_file(*new std::string(argv[1]));
+    if (argc == 2)
+        d.parse_file(*new std::string(argv[1]));
     test (d, nthread);
 
     return 0;
