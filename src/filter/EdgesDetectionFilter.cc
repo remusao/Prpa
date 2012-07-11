@@ -13,7 +13,7 @@ EdgesDetectionFilter::operator()(void* tok)
   IplImage* g_image = static_cast<IplImage*>(tok);
   IplImage* g_gray;
   CvMemStorage* g_storage;
-  g_gray = cvCreateImage( cvGetSize( g_image ), 8, 1 );
+  g_gray = cvCreateImage( cvGetSize( g_image ), IPL_DEPTH_8U, 1 );
   g_storage = cvCreateMemStorage(0);
 
   CvSeq* contours = 0;
