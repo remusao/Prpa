@@ -16,4 +16,6 @@ add_library(filter
             DilateFilter.hh
             EdgesDetectionFilter.cc
             EdgesDetectionFilter.hh
+            BlackWhiteFilter.cc
+            BlackWhiteFilter.hh
 )

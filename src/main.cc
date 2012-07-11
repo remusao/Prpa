@@ -11,6 +11,7 @@
 #include "filter/ErodeFilter.hh"
 #include "filter/DilateFilter.hh"
 #include "filter/EdgesDetectionFilter.hh"
+#include "filter/BlackWhiteFilter.hh"
 
 using namespace cv;
 
@@ -25,6 +26,8 @@ void set_filters(tbb::pipeline* pipeline, parsepit::Driver& drv)
             pipeline->add_filter(*new DilateFilter());
         else if ((*it)->compare("EdgeDetection") == 0)
             pipeline->add_filter(*new EdgesDetectionFilter());
+        else if ((*it)->compare("BlackWhite") == 0)
+            pipeline->add_filter(*new BlackWhiteFilter());
     }
 }
 

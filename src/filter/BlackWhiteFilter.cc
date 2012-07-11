@@ -1,28 +1,28 @@
-#include "ErodeFilter.hh"
+#include "BlackWhiteFilter.hh"
 
-ErodeFilter::ErodeFilter()
+BlackWhiteFilter::BlackWhiteFilter()
   : filter (/* is_serial */ false)
 {
 }
 
 void*
-ErodeFilter::operator()(void* elt)
+BlackWhiteFilter::operator()(void* elt)
 {
   IplImage* img = static_cast<IplImage*> (elt);
   if (!img)
     printf("img null in canny filter\n");
   IplImage* out;
   if (!cvGetImageCOI(img))
-    out = cvCreateImage(cvGetSize(img), IPL_DEPTH_8U, 3);
+    out = cvCreateImage(cvGetSize(img), IPL_DEPTH_8U, 1);
   else
     out = cvCreateImage(cvGetSize(img), IPL_DEPTH_8U, cvGetImageCOI(img));
-  cvErode(img, out, 0, 5);
+  cvCvtColor(img, out, CV_BGR2GRAY);
 
   return out;
 }
 
 std::string
-ErodeFilter::get_name ()
+BlackWhiteFilter::get_name ()
 {
-  return "Erode filter";
+  return "BlackWhite filter";
 }
