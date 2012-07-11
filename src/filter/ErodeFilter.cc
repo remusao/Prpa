@@ -12,10 +12,7 @@ ErodeFilter::operator()(void* elt)
   if (!img)
     printf("img null in canny filter\n");
   IplImage* out;
-  if (!cvGetImageCOI(img))
-    out = cvCreateImage(cvGetSize(img), IPL_DEPTH_8U, 3);
-  else
-    out = cvCreateImage(cvGetSize(img), IPL_DEPTH_8U, cvGetImageCOI(img));
+  out = cvCreateImage(cvGetSize(img), IPL_DEPTH_8U, img->nChannels);
   cvErode(img, out, 0, 5);
 
   return out;

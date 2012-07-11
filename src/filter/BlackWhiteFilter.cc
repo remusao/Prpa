@@ -12,10 +12,7 @@ BlackWhiteFilter::operator()(void* elt)
   if (!img)
     printf("img null in canny filter\n");
   IplImage* out;
-  if (!cvGetImageCOI(img))
-    out = cvCreateImage(cvGetSize(img), IPL_DEPTH_8U, 1);
-  else
-    out = cvCreateImage(cvGetSize(img), IPL_DEPTH_8U, cvGetImageCOI(img));
+  out = cvCreateImage(cvGetSize(img), IPL_DEPTH_8U, 1);
   cvCvtColor(img, out, CV_BGR2GRAY);
 
   return out;
