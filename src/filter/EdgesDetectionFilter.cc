@@ -13,10 +13,14 @@ EdgesDetectionFilter::operator()(void* tok)
   IplImage* g_image = static_cast<IplImage*>(tok);
   IplImage* g_gray;
   CvMemStorage* g_storage;
-  g_gray = cvCreateImage( cvGetSize( g_image ), IPL_DEPTH_8U, 1 );
   g_storage = cvCreateMemStorage(0);
 
   CvSeq* contours = 0;
+  if (g_image->nChannels == 1)
+    g_gray = g_image;
+  else
+    g_gray = cvCreateImage( cvGetSize( g_image ), IPL_DEPTH_8U, 1 );
+
   cvCvtColor( g_image, g_gray, CV_BGR2GRAY );
   cvThreshold( g_gray, g_gray, g_thresh, 255, CV_THRESH_BINARY );
   cvFindContours( g_gray, g_storage, &contours );
