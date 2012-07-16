@@ -20,4 +20,6 @@ add_library(filter
             BlackWhiteFilter.hh
             FaceDetectionFilter.hh
             FaceDetectionFilter.cc
+            MixFilter.cc
+            MixFilter.hh
 )

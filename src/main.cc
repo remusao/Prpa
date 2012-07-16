@@ -13,6 +13,7 @@
 #include "filter/EdgesDetectionFilter.hh"
 #include "filter/BlackWhiteFilter.hh"
 #include "filter/FaceDetectionFilter.hh"
+#include "filter/MixFilter.hh"
 
 using namespace cv;
 
@@ -91,6 +92,8 @@ int test(parsepit::Driver& drv, int threads)
   pipeline.add_filter (ifilter);
 
   set_filters(&pipeline, drv);
+  if (drv.fusion_get ())
+    pipeline.add_filter(*new MixFilter());
 
   // Init windows
   cvNamedWindow("PRPA", 1);
