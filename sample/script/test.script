@@ -1,6 +1,6 @@
-Source(titi.avi)
+Source(toto.avi)
 Mix(titi.avi)
-Output(tata.avi)
+Output(titi.avi)
 Output(WEBCAM)
 #Mix(titi.avi)
 #Filter(EdgeDetection)
