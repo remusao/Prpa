@@ -13,6 +13,7 @@ namespace parsepit
       filter_flags_ (0),
       output_ (new std::string()),
       input_ (new std::string()),
+      fusion_ (0),
       filters_ (*new std::vector<std::string*>())
   {
   }
@@ -24,6 +25,7 @@ namespace parsepit
     delete location_;
     delete input_;
     delete output_;
+    delete fusion_;
   }
 
   void

@@ -9,7 +9,9 @@ FaceDetectionFilter::FaceDetectionFilter(char* haar)
 void*
 FaceDetectionFilter::operator()(void* elt)
 {
-    IplImage* img = static_cast<IplImage*> (elt);
+    std::pair<IplImage*, IplImage*>* pair
+      = static_cast<std::pair<IplImage*, IplImage*>*> (elt);
+    IplImage* img = pair->first;
     if (!img)
         printf("img null in face detection filter\n");
     // Create memory for calculations
@@ -72,7 +74,9 @@ FaceDetectionFilter::operator()(void* elt)
 
     // Release the temp image created.
     cvReleaseImage(&temp);
-    return img;
+    std::pair<IplImage*, IplImage*>* pair2
+      = new std::pair<IplImage*, IplImage*>(img, pair->second);
+    return pair2;
 }
 
     std::string

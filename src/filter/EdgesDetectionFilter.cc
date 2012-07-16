@@ -10,7 +10,9 @@ EdgesDetectionFilter::EdgesDetectionFilter()
 void*
 EdgesDetectionFilter::operator()(void* tok)
 {
-  IplImage* g_image = static_cast<IplImage*>(tok);
+  std::pair<IplImage*, IplImage*>* pair
+    = static_cast<std::pair<IplImage*, IplImage*>*> (tok);
+  IplImage* g_image = pair->first;
   IplImage* g_gray;
   CvMemStorage* g_storage;
   g_storage = cvCreateMemStorage(0);
@@ -34,7 +36,9 @@ EdgesDetectionFilter::operator()(void* tok)
         100 );
   }
   cvClearMemStorage( g_storage );
-  return g_gray;
+  std::pair<IplImage*, IplImage*>* pair2
+    = new std::pair<IplImage*, IplImage*>(g_gray, pair->second);
+  return pair2;
 }
 
 std::string

@@ -84,7 +84,7 @@ STATEMENT:
         "source" "(" "id" ")"       { driver.input_ = $3; }
     |   "filter" "(" "id" ")"       { std::cout << *$3 << std::endl; driver.filters_.push_back($3); }
     |   "overlay" "(" "id" ")"      {}
-    |   "mix" "(" "id" ")"          {}
+    |   "mix" "(" "id" ")"          { driver.fusion_ = $3; }
     |   "output" "(" "id" ")"       { driver.output_ = $3; }
 ;
 

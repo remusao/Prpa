@@ -30,6 +30,7 @@ namespace parsepit
 
       std::string* input_get () const;
       std::string* output_get () const;
+      std::string* fusion_get () const;
       std::vector<std::string*>& filters_get () const;
 
     private:
@@ -42,6 +43,7 @@ namespace parsepit
       //We want to store some informations from the parsing:
       std::string* output_;
       std::string* input_;
+      std::string* fusion_;
       std::vector<std::string*>& filters_;
 
       /// Allows Parser and Scanner to access private attributes

@@ -16,6 +16,11 @@ namespace parsepit
   {
     return output_;
   }
+  inline std::string*
+  Driver::fusion_get () const
+  {
+    return fusion_;
+  }
   inline std::vector<std::string*>&
   Driver::filters_get () const
   {

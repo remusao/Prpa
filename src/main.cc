@@ -63,15 +63,30 @@ int test(parsepit::Driver& drv, int threads)
   else
     capture = cvCaptureFromFile(drv.input_get ()->c_str());
 
+  CvCapture* capture2 = 0;
+  if (drv.fusion_get () && drv.fusion_get ()->compare("WEBCAM") == 0)
+    capture2 = cvCreateCameraCapture(0);
+  else if (drv.fusion_get ())
+    capture2 = cvCaptureFromFile(drv.fusion_get ()->c_str ());
+
   IplImage* img = 0;
   if (!cvGrabFrame(capture))
   {              // capture a frame 
-      printf("Could not grab a frame\n\7");
+      printf("Could not grab a frame from capture1\n\7");
+      exit(0);
+  }
+  IplImage* img2 = 0;
+  if (capture2 && !cvGrabFrame(capture2))
+  {              // capture a frame 
+      printf("Could not grab a frame from capture2\n\7");
       exit(0);
   }
 
+  std::pair<CvCapture*, CvCapture*> pair_cap
+    /*= new std::pair<CvCapture*, CvCapture*>*/ (capture, capture2);
+
   //We feed the pipeline with filters.
-  InputFilter ifilter (capture);
+  InputFilter ifilter (pair_cap);
   //Input
   pipeline.add_filter (ifilter);
 

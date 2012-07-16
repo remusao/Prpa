@@ -8,14 +8,18 @@ ErodeFilter::ErodeFilter()
 void*
 ErodeFilter::operator()(void* elt)
 {
-  IplImage* img = static_cast<IplImage*> (elt);
+  std::pair<IplImage*, IplImage*>* pair
+    = static_cast<std::pair<IplImage*, IplImage*>*> (elt);
+  IplImage* img = pair->first;
   if (!img)
     printf("img null in canny filter\n");
   IplImage* out;
   out = cvCreateImage(cvGetSize(img), IPL_DEPTH_8U, img->nChannels);
   cvErode(img, out, 0, 5);
 
-  return out;
+  std::pair<IplImage*, IplImage*>* pair2
+    = new std::pair<IplImage*, IplImage*>(out, pair->second);
+  return pair2;
 }
 
 std::string

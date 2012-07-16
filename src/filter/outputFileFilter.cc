@@ -9,7 +9,9 @@ OutputFileFilter::OutputFileFilter()
 void*
 OutputFileFilter::operator()(void* tok)
 {
-  IplImage* img = static_cast<IplImage*> (tok);
+  std::pair<IplImage*, IplImage*>* pair
+    = static_cast<std::pair<IplImage*, IplImage*>*> (tok);
+  IplImage* img = pair->first;
   if (!img)
     printf ("img null in output\n");
   //We write the image thank's to the writer.

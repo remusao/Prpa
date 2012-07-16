@@ -9,11 +9,12 @@
 class InputFilter : public tbb::filter
 {
     public:
-        InputFilter(CvCapture*);
+        InputFilter(std::pair<CvCapture*, CvCapture*>&);
         std::string get_name();
     private:
         void* operator()(void*);
         CvCapture* capture;
+        CvCapture* capture2;
 };
 
 #endif /* !INPUTFILTER_HH_ */
