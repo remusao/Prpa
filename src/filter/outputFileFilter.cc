@@ -13,7 +13,7 @@ OutputFileFilter::operator()(void* tok)
   if (!img)
     printf ("img null in output\n");
   //We write the image thank's to the writer.
-  cvShowImage("PRPA", tok);
+  cvShowImage("PRPA", img);
   cvWaitKey(40);
   return 0;
 }

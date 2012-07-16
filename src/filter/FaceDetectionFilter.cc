@@ -1,7 +1,8 @@
 #include "FaceDetectionFilter.hh"
 
-FaceDetectionFilter::FaceDetectionFilter()
-  : filter (/* is_serial */ false)
+FaceDetectionFilter::FaceDetectionFilter(char* haar)
+  : filter (/* is_serial */ false),
+    haar_ (haar)
 {
 }
 
@@ -25,11 +26,9 @@ FaceDetectionFilter::operator()(void* elt)
     // Create two points to represent the face locations
     CvPoint pt1, pt2;
     int i;
-    // Haar Cascade file, used for Face Detection.
-    char *file = "/usr/share/OpenCV/haarcascades/haarcascade_frontalface_default.xml";
 
     // Load the HaarClassifierCascade
-    cascade = (CvHaarClassifierCascade*)cvLoad(file, 0, 0, 0 );
+    cascade = (CvHaarClassifierCascade*)cvLoad(haar_, 0, 0, 0 );
 
     // Check whether the cascade has loaded successfully. Else report and error and quit
     if (!cascade)
@@ -41,9 +40,6 @@ FaceDetectionFilter::operator()(void* elt)
     // Allocate the memory storage
     storage = cvCreateMemStorage(0);
 
-    // Create a new named window with title: result
-    cvNamedWindow( "result", 1 );
-
     // Clear the memory storage which was used before
     cvClearMemStorage( storage );
 
@@ -54,7 +50,7 @@ FaceDetectionFilter::operator()(void* elt)
         // There can be more than one face in an image. So create a growable sequence of faces.
         // Detect the objects and store them in the sequence
         CvSeq* faces = cvHaarDetectObjects( img, cascade, storage,
-                1.1, 2, CV_HAAR_DO_CANNY_PRUNING,
+                1.1, 2, CV_HAAR_DO_CANNY_PRUNING | CV_HAAR_FIND_BIGGEST_OBJECT | CV_HAAR_DO_ROUGH_SEARCH,
                 cvSize(40, 40) );
 
         // Loop the number of faces found.
@@ -74,11 +70,8 @@ FaceDetectionFilter::operator()(void* elt)
         }
     }
 
-    // Show the image in the window named "result"
-    //cvShowImage( "result", img );
-
     // Release the temp image created.
-    cvReleaseImage( &temp );
+    cvReleaseImage(&temp);
     return img;
 }
 

@@ -9,10 +9,11 @@
 class FaceDetectionFilter : public tbb::filter
 {
   public:
-    FaceDetectionFilter();
+    FaceDetectionFilter(char* haar);
     std::string get_name ();
   private:
     void* operator()(void*);
+    char* haar_;
 };
 
 #endif

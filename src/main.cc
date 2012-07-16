@@ -29,8 +29,18 @@ void set_filters(tbb::pipeline* pipeline, parsepit::Driver& drv)
             pipeline->add_filter(*new EdgesDetectionFilter());
         else if ((*it)->compare("BlackWhite") == 0)
             pipeline->add_filter(*new BlackWhiteFilter());
+        else if ((*it)->compare("EyeDetect") == 0)
+            pipeline->add_filter(*new FaceDetectionFilter("/usr/share/OpenCV/haarcascades/haarcascade_eye.xml"));
         else if ((*it)->compare("FaceDetect") == 0)
-            pipeline->add_filter(*new FaceDetectionFilter());
+            pipeline->add_filter(*new FaceDetectionFilter("/usr/share/OpenCV/haarcascades/haarcascade_frontalface_default.xml"));
+        else if ((*it)->compare("GlassesDetect") == 0)
+            pipeline->add_filter(*new FaceDetectionFilter("/usr/share/OpenCV/haarcascades/haarcascade_eye_tree_eyeglasses.xml"));
+        else if ((*it)->compare("MouthDetect") == 0)
+            pipeline->add_filter(*new FaceDetectionFilter("/usr/share/OpenCV/haarcascades/haarcascade_mcs_mouth.xml"));
+        else if ((*it)->compare("NoseDetect") == 0)
+            pipeline->add_filter(*new FaceDetectionFilter("/usr/share/OpenCV/haarcascades/haarcascade_mcs_nose.xml"));
+        else if ((*it)->compare("BodyDetect") == 0)
+            pipeline->add_filter(*new FaceDetectionFilter("/usr/share/OpenCV/haarcascades/haarcascade_mcs_upperbody.xml"));
     }
 }
 
@@ -39,6 +49,12 @@ int test(parsepit::Driver& drv, int threads)
   tbb::task_scheduler_init init(threads);
   //The pipeline.
   tbb::pipeline pipeline;
+
+  if (!drv.input_get() || !drv.output_get())
+  {
+    printf("Input or output not specified.\n");
+    exit(0);
+  }
 
   //First we init the inputs and outputs.
   CvCapture* capture;
@@ -53,7 +69,6 @@ int test(parsepit::Driver& drv, int threads)
       printf("Could not grab a frame\n\7");
       exit(0);
   }
-  //img=cvRetrieveFrame(capture);           // retrieve the captured frame
 
   //We feed the pipeline with filters.
   InputFilter ifilter (capture);
@@ -62,6 +77,8 @@ int test(parsepit::Driver& drv, int threads)
 
   set_filters(&pipeline, drv);
 
+  // Init windows
+  cvNamedWindow("PRPA", 1);
   OutputFileFilter ofilter;
   //Output
   pipeline.add_filter (ofilter);
@@ -70,15 +87,6 @@ int test(parsepit::Driver& drv, int threads)
 
   //We release the inputs and outputs and clear the pipeline.
   pipeline.clear();
-  /*while (cvGrabFrame(capture))
-  {
-    IplImage* tmp2 = cvRetrieveFrame(capture);
-    IplImage* tmp = cvCreateImage( cvGetSize(tmp2), IPL_DEPTH_8U, 3 );
-    cvErode(tmp2, tmp, 0, 1);
-    cvShowImage("test", tmp);
-    cvWaitKey(20);
-    //cvWriteFrame(writer, cvQueryFrame(capture));
-  }*/
   cvReleaseCapture(&capture);
 
   return 0;
