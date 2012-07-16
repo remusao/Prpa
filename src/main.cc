@@ -12,6 +12,7 @@
 #include "filter/DilateFilter.hh"
 #include "filter/EdgesDetectionFilter.hh"
 #include "filter/BlackWhiteFilter.hh"
+#include "filter/FaceDetectionFilter.hh"
 
 using namespace cv;
 
@@ -28,6 +29,8 @@ void set_filters(tbb::pipeline* pipeline, parsepit::Driver& drv)
             pipeline->add_filter(*new EdgesDetectionFilter());
         else if ((*it)->compare("BlackWhite") == 0)
             pipeline->add_filter(*new BlackWhiteFilter());
+        else if ((*it)->compare("FaceDetect") == 0)
+            pipeline->add_filter(*new FaceDetectionFilter());
     }
 }
 

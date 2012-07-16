@@ -18,4 +18,6 @@ add_library(filter
             EdgesDetectionFilter.hh
             BlackWhiteFilter.cc
             BlackWhiteFilter.hh
+            FaceDetectionFilter.hh
+            FaceDetectionFilter.cc
 )
