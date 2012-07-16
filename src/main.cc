@@ -14,6 +14,7 @@
 #include "filter/BlackWhiteFilter.hh"
 #include "filter/FaceDetectionFilter.hh"
 #include "filter/MixFilter.hh"
+#include "filter/TransparenceFilter.hh"
 
 using namespace cv;
 
@@ -42,6 +43,10 @@ void set_filters(tbb::pipeline* pipeline, parsepit::Driver& drv)
             pipeline->add_filter(*new FaceDetectionFilter("/usr/share/OpenCV/haarcascades/haarcascade_mcs_nose.xml"));
         else if ((*it)->compare("BodyDetect") == 0)
             pipeline->add_filter(*new FaceDetectionFilter("/usr/share/OpenCV/haarcascades/haarcascade_mcs_upperbody.xml"));
+        else if (drv.fusion_get() && (*it)->compare("Mixage") == 0)
+            pipeline->add_filter(*new MixFilter());
+        else if (drv.fusion_get () && (*it)->compare("Transparence") == 0)
+            pipeline->add_filter(*new TransparenceFilter());
     }
 }
 
@@ -92,8 +97,6 @@ int test(parsepit::Driver& drv, int threads)
   pipeline.add_filter (ifilter);
 
   set_filters(&pipeline, drv);
-  if (drv.fusion_get ())
-    pipeline.add_filter(*new MixFilter());
 
   // Init windows
   cvNamedWindow("PRPA", 1);

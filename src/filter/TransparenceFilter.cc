@@ -1,13 +1,13 @@
-#include "MixFilter.hh"
+#include "TransparenceFilter.hh"
 #include "string.h"
 
-MixFilter::MixFilter()
+TransparenceFilter::TransparenceFilter()
   : filter (/* is_serial */ false)
 {
 }
 
 void*
-MixFilter::operator()(void* elt)
+TransparenceFilter::operator()(void* elt)
 {
   std::pair<IplImage*, IplImage*>* pair
     = static_cast<std::pair<IplImage*, IplImage*>*> (elt);
@@ -24,16 +24,15 @@ MixFilter::operator()(void* elt)
   int step = img->widthStep;
   unsigned char* data = reinterpret_cast<unsigned char*>(out->imageData);
 
-  //std::cout << height << " " << width << " " << channels << " " << step << " " << img->imageSize << std::endl;
-  //std::cout << out->height << " " << out->width << " " << out->nChannels << " " << out->widthStep << " " << out->imageSize << std::endl;
+  float alpha = 0.3f;
 
   for(int i=0;i<img->imageSize;i++)
   {
-     data[i] = img->imageData[i];
+     data[i] = (unsigned char)(alpha * (float)img->imageData[i]);
   }
-  for(int i=0;i<img2->imageSize;i+=3)
+  for(int i=0;i<img2->imageSize;i++)
   {
-     data[i] = img2->imageData[i];
+     data[i] += (unsigned char)((1.0f - alpha) * (float)img2->imageData[i]);
   }
   std::pair<IplImage*, IplImage*>* pair2
     = new std::pair<IplImage*, IplImage*>(out, pair->second);
@@ -41,7 +40,7 @@ MixFilter::operator()(void* elt)
 }
 
 std::string
-MixFilter::get_name ()
+TransparenceFilter::get_name ()
 {
-  return "Mix filter";
+  return "Transparence filter";
 }

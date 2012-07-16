@@ -22,4 +22,6 @@ add_library(filter
             FaceDetectionFilter.cc
             MixFilter.cc
             MixFilter.hh
+            TransparenceFilter.cc
+            TransparenceFilter.hh
 )
