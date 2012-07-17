@@ -1,7 +1,2 @@
-
-- Implements interpreter for the scripts
-- Implements management of multiple sources (multiple
-    instances of the engine (differents pipelnes))
-- Implements management of multiple outputs
-- Implements filters
-- Implement multithreading as much as possible
+- Output filter
+- Segfault with filters edgeDetect + BlackWhite

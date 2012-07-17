@@ -9,7 +9,7 @@ InputFilter::InputFilter(std::pair<CvCapture*, CvCapture*>& pair_cap)
 
 
 void*
-InputFilter::operator()(void* elt)
+InputFilter::operator()(void*)
 {
   if (cvGrabFrame (capture) && capture2 && cvGrabFrame(capture2))
   {

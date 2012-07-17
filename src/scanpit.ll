@@ -101,34 +101,19 @@ id              [a-zA-Z0-9_.]+
 "\#"           {yy_push_state (SC_COMMENT);}
 
 
-(?i:source)   {
-                GET_STR ();
-                return token::SOURCE;
-              }
+(?i:source)     return token::SOURCE;
 
-(?i:filter)   {
-                GET_STR ();
-                return token::FILTER;
-              }
+(?i:filter)     return token::FILTER;
 
-(?i:overlay)  {
-                GET_STR ();
-                return token::OVERLAY;
-              }
+(?i:overlay)    return token::OVERLAY;
 
-(?i:mix)      {
-                GET_STR ();
-                return token::MIX;
-              }
+(?i:mix)        return token::MIX;
 
-(?i:output)   {
-                GET_STR();
-                return token::OUTPUT;
-              }
+(?i:output)     return token::OUTPUT;
 
 
-"("           return token::LPAR;
-")"           return token::RPAR;
+"("             return token::LPAR;
+")"             return token::RPAR;
 
 
 {id}          {

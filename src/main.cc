@@ -75,13 +75,13 @@ int test(parsepit::Driver& drv, int threads)
   else if (drv.fusion_get ())
     capture2 = cvCaptureFromFile(drv.fusion_get ()->c_str ());
 
-  IplImage* img = 0;
+  //IplImage* img = 0;
   if (!cvGrabFrame(capture))
   {              // capture a frame 
       printf("Could not grab a frame from capture1\n\7");
       exit(0);
   }
-  IplImage* img2 = 0;
+  //IplImage* img2 = 0;
   if (capture2 && !cvGrabFrame(capture2))
   {              // capture a frame 
       printf("Could not grab a frame from capture2\n\7");

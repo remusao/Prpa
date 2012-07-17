@@ -18,10 +18,10 @@ MixFilter::operator()(void* elt)
   IplImage* out;
   out = cvCreateImage(cvGetSize(img), IPL_DEPTH_8U, img->nChannels);
 
-  int height = img->height;
-  int width = img->width;
-  int channels = img->nChannels;
-  int step = img->widthStep;
+  //int height = img->height;
+  //int width = img->width;
+  //int channels = img->nChannels;
+  //int step = img->widthStep;
   unsigned char* data = reinterpret_cast<unsigned char*>(out->imageData);
 
   //std::cout << height << " " << width << " " << channels << " " << step << " " << img->imageSize << std::endl;

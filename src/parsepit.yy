@@ -3,6 +3,9 @@
 #include "parser.hh"
 #include "scanpit.hh"
 
+#ifdef yylex
+# undef yylex
+#endif
 #define yylex driver.scanner_->yylex
 %}
 
@@ -40,7 +43,7 @@
 
 
 /* Treatment */
-%token <str>
+%token
     SOURCE  "source"
     OUTPUT  "output"
     FILTER  "filter"
