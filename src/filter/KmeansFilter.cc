@@ -119,6 +119,7 @@ KmeansFilter::operator()(void* elt)
   IplImage* img = pair->first;
   if (!img)
     printf("img null in canny filter\n");
+  std::cout << "Depth: " << img->depth << std::endl;
   IplImage out;
   //out = cvCreateImage(cvGetSize(img), IPL_DEPTH_8U, img->nChannels);
 
@@ -153,7 +154,7 @@ KmeansFilter::operator()(void* elt)
   auto res = par_kmeans(options, distance, data);
 
   //std::cout << "Generating output picture" << std::endl;
-  cv::Mat output = cv::Mat::zeros(image.rows, image.cols, CV_8UC3);
+  cv::Mat output = cv::Mat::zeros(image.rows, image.cols, CV_32F);
     for (unsigned i = 0; i < data.size(); ++i)
     {
         unsigned x = i % image.cols;
