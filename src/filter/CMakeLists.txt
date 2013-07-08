@@ -24,4 +24,6 @@ add_library(filter
             MixFilter.hh
             TransparenceFilter.cc
             TransparenceFilter.hh
+            KmeansFilter.cc
+            KmeansFilter.hh
 )

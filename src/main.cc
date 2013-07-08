@@ -15,6 +15,7 @@
 #include "filter/FaceDetectionFilter.hh"
 #include "filter/MixFilter.hh"
 #include "filter/TransparenceFilter.hh"
+#include "filter/KmeansFilter.hh"
 
 using namespace cv;
 
@@ -25,6 +26,8 @@ void set_filters(tbb::pipeline* pipeline, parsepit::Driver& drv)
     {
         if ((*it)->compare("Erode") == 0)
             pipeline->add_filter(*new ErodeFilter());
+        if ((*it)->compare("Kmeans") == 0)
+            pipeline->add_filter(*new KmeansFilter());
         else if ((*it)->compare("Dilate") == 0)
             pipeline->add_filter(*new DilateFilter());
         else if ((*it)->compare("EdgeDetection") == 0)
