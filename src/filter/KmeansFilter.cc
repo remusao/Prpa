@@ -127,7 +127,7 @@ KmeansFilter::operator()(void* elt)
     };
 
     // First argument is K.
-    uint32_t K = 2;
+    uint32_t K = 3;
     // Second argument is Dim.
     uint32_t Dim = 3;
 
