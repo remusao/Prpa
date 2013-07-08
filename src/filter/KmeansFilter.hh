@@ -8,11 +8,11 @@
 
 class KmeansFilter : public tbb::filter
 {
-   public:
-    KmeansFilter();
-    std::string get_name ();
+    public:
+        KmeansFilter();
+        std::string get_name();
     private:
-    void* operator()(void*);
+        void* operator()(void*);
 };
 
 #endif /* !KMEANSFILTER_HH_ */

@@ -114,31 +114,27 @@ KmeansFilter::operator()(void* elt)
 {
     using Vector = Eigen::Vector3i;
 
-  std::pair<IplImage*, IplImage*>* pair
-    = static_cast<std::pair<IplImage*, IplImage*>*> (elt);
-  IplImage* img = pair->first;
-  if (!img)
-    printf("img null in canny filter\n");
-  std::cout << "Depth: " << img->depth << std::endl;
-  IplImage out;
-  //out = cvCreateImage(cvGetSize(img), IPL_DEPTH_8U, img->nChannels);
+    auto* pair = static_cast<std::pair<IplImage*, IplImage*>*> (elt);
+    IplImage* img = pair->first;
+    if (!img)
+        printf("img null in canny filter\n");
+    //out = cvCreateImage(cvGetSize(img), IPL_DEPTH_8U, img->nChannels);
 
-  // Create the distance function
-  auto distance = [](const Vector& v1,
-          const Vector& v2) -> double
-  {
-      return (v1 - v2).squaredNorm();
-  };
+    // Create the distance function
+    auto distance = [](const Vector& v1, const Vector& v2)
+    {
+        return (v1 - v2).squaredNorm();
+    };
 
-  // First argument is K.
-  uint32_t K = 2;
-  // Second argument is Dim.
-  uint32_t Dim = 3;
-  KMeansOptions options{K, Dim, (uint32_t)(img->imageSize)};
+    // First argument is K.
+    uint32_t K = 2;
+    // Second argument is Dim.
+    uint32_t Dim = 3;
 
-  cv::Mat image(img);
+    static cv::Mat image(img);
+    KMeansOptions options{K, Dim, (uint32_t)(image.rows * image.cols)};
 
-  // Create vectors from image
+    // Create vectors from image
     std::vector<Vector> data;
     data.reserve(options.nbVectors);
 
@@ -150,11 +146,10 @@ KmeansFilter::operator()(void* elt)
                     image.at<cv::Vec3b>(i, j)[1],
                     image.at<cv::Vec3b>(i, j)[2]);
 
-  std::cout << "Clustering: " << data.size() << " " << Dim << "d vectors" << std::endl;
-  auto res = par_kmeans(options, distance, data);
+    std::cout << "Clustering: " << data.size() << " " << Dim << "d vectors" << std::endl;
+    auto res = par_kmeans(options, distance, data);
 
-  //std::cout << "Generating output picture" << std::endl;
-  cv::Mat output = cv::Mat::zeros(image.rows, image.cols, CV_32F);
+    static cv::Mat output = cv::Mat::zeros(image.rows, image.cols, CV_8UC3);
     for (unsigned i = 0; i < data.size(); ++i)
     {
         unsigned x = i % image.cols;
@@ -164,15 +159,11 @@ KmeansFilter::operator()(void* elt)
         output.at<cv::Vec3b>(y, x)[2] = 255 / (res[i] + 1);
     }
 
-    out = output;
-
-  std::pair<IplImage*, IplImage*>* pair2
-      = new std::pair<IplImage*, IplImage*>(&out, pair->second);
-  return pair2;
+    return (new std::pair<IplImage*, IplImage*>(new IplImage(output), pair->second));
 }
 
-    std::string
-KmeansFilter::get_name ()
+std::string
+KmeansFilter::get_name()
 {
     return "Kmeans filter";
 }

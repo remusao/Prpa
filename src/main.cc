@@ -22,33 +22,33 @@ using namespace cv;
 
 void set_filters(tbb::pipeline* pipeline, parsepit::Driver& drv)
 {
-    for (std::vector<std::string*>::iterator it = drv.filters_get().begin(); it < drv.filters_get().end(); it++)
+    for (const auto& filter: drv.filters_get())
     {
-        if ((*it)->compare("Erode") == 0)
+        if (filter->compare("Erode") == 0)
             pipeline->add_filter(*new ErodeFilter());
-        if ((*it)->compare("Kmeans") == 0)
+        else if (filter->compare("Kmeans") == 0)
             pipeline->add_filter(*new KmeansFilter());
-        else if ((*it)->compare("Dilate") == 0)
+        else if (filter->compare("Dilate") == 0)
             pipeline->add_filter(*new DilateFilter());
-        else if ((*it)->compare("EdgeDetection") == 0)
+        else if (filter->compare("EdgeDetection") == 0)
             pipeline->add_filter(*new EdgesDetectionFilter());
-        else if ((*it)->compare("BlackWhite") == 0)
+        else if (filter->compare("BlackWhite") == 0)
             pipeline->add_filter(*new BlackWhiteFilter());
-        else if ((*it)->compare("EyeDetect") == 0)
+        else if (filter->compare("EyeDetect") == 0)
             pipeline->add_filter(*new FaceDetectionFilter("/usr/share/OpenCV/haarcascades/haarcascade_eye.xml"));
-        else if ((*it)->compare("FaceDetect") == 0)
+        else if (filter->compare("FaceDetect") == 0)
             pipeline->add_filter(*new FaceDetectionFilter("/usr/share/OpenCV/haarcascades/haarcascade_frontalface_default.xml"));
-        else if ((*it)->compare("GlassesDetect") == 0)
+        else if (filter->compare("GlassesDetect") == 0)
             pipeline->add_filter(*new FaceDetectionFilter("/usr/share/OpenCV/haarcascades/haarcascade_eye_tree_eyeglasses.xml"));
-        else if ((*it)->compare("MouthDetect") == 0)
+        else if (filter->compare("MouthDetect") == 0)
             pipeline->add_filter(*new FaceDetectionFilter("/usr/share/OpenCV/haarcascades/haarcascade_mcs_mouth.xml"));
-        else if ((*it)->compare("NoseDetect") == 0)
+        else if (filter->compare("NoseDetect") == 0)
             pipeline->add_filter(*new FaceDetectionFilter("/usr/share/OpenCV/haarcascades/haarcascade_mcs_nose.xml"));
-        else if ((*it)->compare("BodyDetect") == 0)
+        else if (filter->compare("BodyDetect") == 0)
             pipeline->add_filter(*new FaceDetectionFilter("/usr/share/OpenCV/haarcascades/haarcascade_mcs_upperbody.xml"));
-        else if (drv.fusion_get() && (*it)->compare("Mixage") == 0)
+        else if (drv.fusion_get() && filter->compare("Mixage") == 0)
             pipeline->add_filter(*new MixFilter());
-        else if (drv.fusion_get () && (*it)->compare("Transparence") == 0)
+        else if (drv.fusion_get () && filter->compare("Transparence") == 0)
             pipeline->add_filter(*new TransparenceFilter());
     }
 }
