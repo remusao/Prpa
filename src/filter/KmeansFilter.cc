@@ -138,7 +138,6 @@ KmeansFilter::operator()(void* elt)
     std::vector<Vector> data;
     data.reserve(options.nbVectors);
 
-    std::cout << "Filling vector" << std::endl;
     for(int i = 0; i < image.rows; ++i)
         for(int j = 0; j < image.cols; ++j)
             data.emplace_back(

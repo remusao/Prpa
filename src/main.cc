@@ -102,7 +102,7 @@ int test(parsepit::Driver& drv, int threads)
   set_filters(&pipeline, drv);
 
   // Init windows
-  cvNamedWindow("PRPA", 1);
+  cvNamedWindow("PRPA", CV_WINDOW_AUTOSIZE);
   OutputFileFilter ofilter;
   //Output
   pipeline.add_filter (ofilter);
